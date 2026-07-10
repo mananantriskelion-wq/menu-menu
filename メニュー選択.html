@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>バイキング献立メニュー</title>
+  <style>
+    .area {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .food-list, .tray {
+      border: 2px dashed #ccc;
+      padding: 10px;
+      width: 640px;
+      min-height: 150px;
+    }
+    .food-img {
+      width: 140px;
+      margin: 5px;
+      cursor: grab;
+    }
+    .tray {
+      background: #fff9f9;
+    }
+    .tray.over {
+      background: #e0f7fa;
+    }
+    .tray img {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>食材を左側のメニューから選んで右側のトレイにドラッグしましょう。</h2>
+<h3>多すぎたと思ったらトレイの中の画像をクリックすると取り消せます。</h3>
+<hr>
+
+<div>
+  合計カロリー：<span id="totalCal">0</span> kcal　
+  たんぱく質：<span id="totalpro">0</span> g
+  脂質：<span id="totalfat">0</span> g
+  カルシウム：<span id="totalclm">0</span> mg
+  ビタミンＣ：<span id="totalvtc">0</span> mg
+  食物せんい：<span id="totalfav">0</span> g
+</div>
+
+<div id="countArea" style="margin-top:10px;">
+  <strong>選択した食材：</strong><br>
+</div>
+
+<hr>
+
+<div class="area">
+  <div class="food-list">
+    <strong>食材</strong><br>
+
+    <!-- 画像一覧（省略せずそのまま） -->
+    <img src="img/001.png" class="food-img" draggable="true" data-name="おにぎり(わかめ)" data-cal="190" data-pro="3.2" data-fat="0.4" data-clm="4" data-vtc="0" data-fav="2">
+    <img src="img/002.png" class="food-img" draggable="true" data-name="塩むすび" data-cal="193" data-pro="3.8" data-fat="0.5" data-clm="10" data-vtc="4" data-fav="2.5">
+    <img src="img/003.png" class="food-img" draggable="true" data-name="ミルクパン" data-cal="103" data-pro="2.2" data-fat="3.3" data-clm="13" data-vtc="0" data-fav="0.5">
+    <img src="img/004.png" class="food-img" draggable="true" data-name="クロワッサン" data-cal="122" data-pro="2.4" data-fat="5.9" data-clm="3" data-vtc="0" data-fav="0.5"><br>
+    <img src="img/005.png" class="food-img" draggable="true" data-name="たこやき(2個)" data-cal="49" data-pro="3.5" data-fat="1.1" data-clm="10" data-vtc="2" data-fav="0.4">
+    <img src="img/006.png" class="food-img" draggable="true" data-name="ほうれん草のキッシュ" data-cal="182" data-pro="9.6" data-fat="14.6" data-clm="131" data-vtc="10" data-fav="0.8">
+    <img src="img/007.png" class="food-img" draggable="true" data-name="鶏肉の唐揚げ(1個)" data-cal="93" data-pro="4.4" data-fat="6" data-clm="3" data-vtc="2" data-fav="0">
+    <img src="img/008.png" class="food-img" draggable="true" data-name="えびフライ" data-cal="115" data-pro="5.1" data-fat="6" data-clm="21" data-vtc="1" data-fav="0">
+    <img src="img/009.png" class="food-img" draggable="true" data-name="ペンネとブロッコリーのサラダ" data-cal="84" data-pro="3.5" data-fat="3.7" data-clm="12" data-vtc="27" data-fav="1.5">
+    <img src="img/010.png" class="food-img" draggable="true" data-name="ひじきのマリネ" data-cal="40" data-pro="1.9" data-fat="1.7" data-clm="52" data-vtc="10" data-fav="1.9"><br>
+    <img src="img/012.png" class="food-img" draggable="true" data-name="梨(なし)" data-cal="15" data-pro="0.1" data-fat="0" data-clm="1" data-vtc="1" data-fav="0.4">
+    <img src="img/013.png" class="food-img" draggable="true" data-name="シャインマスカット(2つぶ）" data-cal="49" data-pro="0.3" data-fat="0.1" data-clm="5" data-vtc="2" data-fav="0.4">
+    <img src="img/014.png" class="food-img" draggable="true" data-name="りんご(1/6個)" data-cal="32" data-pro="0.1" data-fat="0.1" data-clm="2" data-vtc="2" data-fav="0.8">
+    <img src="img/015.png" class="food-img" draggable="true" data-name="パインアップル" data-cal="22" data-pro="0.2" data-fat="0" data-clm="4" data-vtc="14" data-fav="0.5"><br>
+    <img src="img/017.png" class="food-img" draggable="true" data-name="ジョア(プレーン)" data-cal="70" data-pro="4.4" data-fat="0.1" data-clm="684" data-vtc="0" data-fav="0.4">
+    <img src="img/018.png" class="food-img" draggable="true" data-name="ジョア(ブルーベリー)" data-cal="80" data-pro="4.3" data-fat="0.1" data-clm="205" data-vtc="0" data-fav="0.5">
+    <img src="img/019.png" class="food-img" draggable="true" data-name="ジョア(いちご)" data-cal="73" data-pro="4.3" data-fat="0.1" data-clm="681" data-vtc="0" data-fav="0.4">
+    <img src="img/020.png" class="food-img" draggable="true" data-name="ジョア(白ぶどう)" data-cal="49" data-pro="4.0" data-fat="0.1" data-clm="198" data-vtc="0" data-fav="0.4">
+  </div>
+
+  <div id="tray" class="tray">
+    <strong>トレイ</strong><br>
+    ここにドラッグ＆ドロップ
+  </div>
+</div>
+
+<hr>
+
+<button id="resetBtn">最初からやりなおす</button>
+<button id="go">メニュー決定！</button>
+
+<script>
+/* -------------------------
+   初期データ
+------------------------- */
+let items = [
+  { name: "いちごゼリー", cal: 46, fat: 2.2, pro:0.1,vtc:0,fav:0.1,clm:3, src: "img/016.png", fixed: true },
+  { name: "ABCスープ",   cal: 96, fat: 4.7, pro:3.4,vtc:13,fav:1.4,clm:16, src: "img/011.png", fixed: true }
+];
+
+let countMap = {};
+
+/* -------------------------
+   DOM 読み込み後に初期化
+------------------------- */
+window.onload = () => {
+
+  const foods = document.querySelectorAll('.food-img');
+  const tray  = document.getElementById('tray');
+
+  /* --- ドラッグ開始 --- */
+  foods.forEach(food => {
+    food.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', JSON.stringify({
+        name: food.dataset.name,
+        cal:  Number(food.dataset.cal),
+        fat:  Number(food.dataset.fat),
+        pro:  Number(food.dataset.pro),
+        clm:  Number(food.dataset.clm),
+        fav:  Number(food.dataset.fav),
+        vtc:  Number(food.dataset.vtc),
+        src:  food.src
+      }));
+    });
+  });
+
+  /* --- ドロップ処理 --- */
+  tray.addEventListener('dragover', e => {
+    e.preventDefault();
+    tray.classList.add('over');
+  });
+
+  tray.addEventListener('dragleave', () => {
+    tray.classList.remove('over');
+  });
+
+  tray.addEventListener('drop', e => {
+    e.preventDefault();
+    tray.classList.remove('over');
+
+    const data = e.dataTransfer.getData('text/plain');
+    if (!data) return;
+
+    const item = JSON.parse(data);
+    item.fixed = false;
+
+    const noDuplicateList = ["ジョア(プレーン)","ジョア(ブルーベリー)","ジョア(いちご)","ジョア(白ぶどう)" ];
+
+    if (noDuplicateList.includes(item.name)) {
+      if (items.some(i => i.name === item.name)) {
+        alert(item.name + " は二つ以上選べません。");
+        return;
+      }
+    }
+
+    items.push(item);
+    renderTray();
+    recalc();
+  });
+
+  renderTray();
+  recalc();
+};
+
+/* -------------------------
+   トレイ描画
+------------------------- */
+function renderTray() {
+  const tray = document.getElementById('tray');
+  tray.innerHTML = "<strong>トレイ</strong><br>";
+
+  items.forEach((item, index) => {
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.width = 90;
+    img.style.margin = "3px";
+
+    img.addEventListener('click', () => {
+      if (item.fixed) return;
+      items.splice(index, 1);
+      renderTray();
+      recalc();
+    });
+
+    tray.appendChild(img);
+  });
+}
+
+/* -------------------------
+   合計計算
+------------------------- */
+function recalc() {
+
+  let totalCal = 0;
+  let totalfat = 0;
+  let totalpro = 0;
+  let totalclm = 0;
+  let totalvtc = 0;
+  let totalfav = 0;
+
+  countMap = {};
+
+  items.forEach(item => {
+    totalCal += Number(item.cal);
+    totalfat += Number(item.fat);
+    totalpro += Number(item.pro);
+    totalclm += Number(item.clm);
+    totalfav += Number(item.fav);
+    totalvtc += Number(item.vtc);
+
+    if (!countMap[item.name]) countMap[item.name] = 0;
+    countMap[item.name]++;
+  });
+
+  document.getElementById('totalCal').textContent = totalCal.toFixed(1);
+  document.getElementById('totalfat').textContent = totalfat.toFixed(1);
+  document.getElementById('totalpro').textContent = totalpro.toFixed(1);
+  document.getElementById('totalclm').textContent = totalclm.toFixed(1);
+  document.getElementById('totalfav').textContent = totalfav.toFixed(1);
+  document.getElementById('totalvtc').textContent = totalvtc.toFixed(1);
+
+  let html = "<strong>選択した食材：</strong><br>";
+  for (const name in countMap) {
+    html += `${name} × ${countMap[name]} , `;
+  }
+  document.getElementById('countArea').innerHTML = html;
+}
+
+/* -------------------------
+   リセット
+------------------------- */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  items = [
+    { name: "いちごゼリー", cal: 46, fat: 2.2, pro:0.1,vtc:0,fav:0.1,clm:3, src: "img/016.png", fixed: true },
+    { name: "ABCスープ",   cal: 96, fat: 4.7, pro:3.4,vtc:13,fav:1.4,clm:16, src: "img/011.png", fixed: true }
+  ];
+  renderTray();
+  recalc();
+});
+
+/* -------------------------
+   結果ページへデータ送信
+------------------------- */
+document.getElementById("go").addEventListener("click", () => {
+
+  sessionStorage.setItem("calcResult", document.getElementById('totalCal').textContent);
+  sessionStorage.setItem("foodCounts", JSON.stringify(countMap));
+
+  location.href = "計算結果.html";
+});
+</script>
+
+</body>
+</html>

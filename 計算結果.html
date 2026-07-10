@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>計算結果</title>
+</head>
+<body>
+
+<h2>わたしが選択した食材は</h2>
+<div id="foodList"></div>
+
+
+
+
+
+<script>
+  const foodListDiv = document.getElementById("foodList");
+
+  // 保存された countMap を取得
+  const foodCounts = JSON.parse(sessionStorage.getItem("foodCounts"));
+
+  if (!foodCounts) {
+    foodListDiv.textContent = "データがありません。";
+  } else {
+    let html = "<ul>";
+    for (const name in foodCounts) {
+      html += `<li>${name} × ${foodCounts[name]}</li>`;
+    }
+    html += "</ul>";
+    foodListDiv.innerHTML = html;
+  }
+</script>
+
+<H2>です。</H2>
+
+
+<button onclick="history.back()">戻る（最初からやり直します）</button>
+
+</body>
+</html>
